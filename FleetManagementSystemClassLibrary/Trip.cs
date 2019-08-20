@@ -64,5 +64,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public static void ScheduleTrip()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

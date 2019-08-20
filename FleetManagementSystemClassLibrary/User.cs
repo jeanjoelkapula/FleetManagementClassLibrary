@@ -46,5 +46,15 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public static void RegisterUser()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void LoginUser()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

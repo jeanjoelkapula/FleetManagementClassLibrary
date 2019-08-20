@@ -41,5 +41,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public static void RegisterVehicle()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

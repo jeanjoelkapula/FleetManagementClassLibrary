@@ -36,5 +36,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void CalculateSalary()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
