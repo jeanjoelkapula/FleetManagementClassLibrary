@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo.cs" />
-    <Compile Include="CargoPackage.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="CargoType.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Depot.cs" />
