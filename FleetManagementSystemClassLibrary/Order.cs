@@ -26,5 +26,20 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public static Order getOrder()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static List<Order> getAllOrders()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void postOrder()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

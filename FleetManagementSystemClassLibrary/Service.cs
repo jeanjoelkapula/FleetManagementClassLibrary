@@ -47,7 +47,17 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public static void ScheduleService()
+        public static void scheduleService()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static List<Service> getAllServices()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Service getService()
         {
             throw new System.NotImplementedException();
         }

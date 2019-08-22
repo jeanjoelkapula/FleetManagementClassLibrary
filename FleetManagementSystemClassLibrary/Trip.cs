@@ -69,5 +69,15 @@ namespace FleetManagementSystemClassLibrary
         {
             throw new System.NotImplementedException();
         }
+
+        public static List<Trip> getAllTrips()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Trip getTrip()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
