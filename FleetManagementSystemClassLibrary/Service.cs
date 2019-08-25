@@ -57,9 +57,14 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
-        public static Service getService()
+        public static Service getService(int Service_ID)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void updateService()
+        {
+
         }
     }
 }

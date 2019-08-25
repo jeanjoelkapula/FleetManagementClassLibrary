@@ -27,7 +27,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public static Order getOrder()
+        public static Order getOrder(int Order_ID)
         {
             throw new System.NotImplementedException();
         }

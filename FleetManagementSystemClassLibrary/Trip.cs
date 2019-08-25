@@ -75,9 +75,14 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
-        public static Trip getTrip()
+        public static Trip getTrip(int Trip_ID)
         {
             throw new System.NotImplementedException();
+        }
+
+        public static void updateTrip(int Trip_ID)
+        {
+
         }
     }
 }

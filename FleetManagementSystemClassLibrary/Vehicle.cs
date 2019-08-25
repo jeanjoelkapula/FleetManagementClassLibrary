@@ -52,9 +52,14 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
-        public static Vehicle getVehicle()
+        public static Vehicle getVehicle(int VehiclVehicle_ID)
         {
             throw new System.NotImplementedException();
+        }
+
+        public static void updateVehicle(int VehiclVehicle_ID)
+        {
+
         }
     }
 }

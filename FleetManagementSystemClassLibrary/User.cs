@@ -57,12 +57,23 @@ namespace FleetManagementSystemClassLibrary
         }
 
 
-        public static User getUser()
+        public static User getUser(int User_ID)
         {
             throw new System.NotImplementedException();
         }
 
         public static List<User> getAllUsers()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void updateUser(int User_ID)
+        {
+            throw new System.NotImplementedException();
+
+        }
+
+        public static void suspendUser(int User_ID)
         {
             throw new System.NotImplementedException();
         }
