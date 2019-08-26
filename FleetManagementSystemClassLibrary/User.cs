@@ -77,5 +77,10 @@ namespace FleetManagementSystemClassLibrary
         {
             throw new System.NotImplementedException();
         }
+
+        public void editRole()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

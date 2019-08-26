@@ -21,5 +21,15 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void addCustomer()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void editCustomer()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

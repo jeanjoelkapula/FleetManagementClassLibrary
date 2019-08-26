@@ -21,5 +21,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void addPart()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
