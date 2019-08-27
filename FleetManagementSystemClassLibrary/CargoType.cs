@@ -16,5 +16,15 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void addCargoType()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void editCargoType()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -21,5 +21,20 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void editDepot()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void addDepot()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void viewDepots()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

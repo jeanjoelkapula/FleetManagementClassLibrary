@@ -31,5 +31,15 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void addVehicleType()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void editVehicleType()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

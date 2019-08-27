@@ -16,5 +16,15 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public void addRole()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void editRole()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
