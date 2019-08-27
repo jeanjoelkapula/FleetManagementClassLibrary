@@ -4,13 +4,13 @@
     <Position X="10.977" Y="1.135" Height="0.75" Width="1.7" />
   </Comment>
   <Comment CommentText="Service contains a List of type Parts. The association line to parts cannot be created with List&lt;&gt;">
-    <Position X="0.864" Y="8.396" Height="0.75" Width="1.7" />
+    <Position X="0.897" Y="8.746" Height="0.75" Width="1.7" />
   </Comment>
   <Comment CommentText="Trip contains a List of type Cargo. The association line to parts cannot be created with List&lt;&gt;">
     <Position X="8.435" Y="3.573" Height="0.75" Width="1.7" />
   </Comment>
   <Class Name="FleetManagementSystemClassLibrary.User">
-    <Position X="4.75" Y="2.5" Width="2" />
+    <Position X="5" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgASABAAAAEwAIAAABAAAAAAACAABAABAAAAE=</HashCode>
       <FileName>User.cs</FileName>
@@ -20,9 +20,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Role">
-    <Position X="1.75" Y="2.25" Width="1.5" />
+    <Position X="0.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAgAAAEAAAAA=</HashCode>
       <FileName>Role.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,14 +42,14 @@
   <Class Name="FleetManagementSystemClassLibrary.Depot">
     <Position X="12.5" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIEAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAEAAAAAAAAAAIEAAAAgIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Depot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Vehicle_Type">
     <Position X="6.5" Y="9.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AEAIAAAAAAAAAEAAAAAAAAAAACAAAAAAAAAAAACAAAA=</HashCode>
+      <HashCode>AEAIAAAAAAAAAEAAAQAAEAAAACAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>Vehicle_Type.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -66,7 +66,7 @@
   <Class Name="FleetManagementSystemClassLibrary.Part">
     <Position X="1" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQBAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAQBAA=</HashCode>
       <FileName>Parts.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,14 +84,14 @@
   <Class Name="FleetManagementSystemClassLibrary.CargoType">
     <Position X="1.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAACAAIAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAA=</HashCode>
       <FileName>CargoType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Cargo">
     <Position X="5.75" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAACQAAACAAgAAAAAAAAAAIAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Cargo.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -111,12 +111,12 @@
   <Class Name="FleetManagementSystemClassLibrary.Customer">
     <Position X="14.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAAAAAAAQAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAAAAAAAAAAIAAQAAIAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Timesheet">
-    <Position X="2" Y="3.75" Width="1.5" />
+    <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAwCAAAAQAAAQIACAAAAABAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>Timesheet.cs</FileName>
