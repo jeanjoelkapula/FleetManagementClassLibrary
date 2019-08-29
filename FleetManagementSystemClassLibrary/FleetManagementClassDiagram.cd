@@ -54,9 +54,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Vehicle">
-    <Position X="9.5" Y="8.5" Width="1.5" />
+    <Position X="9.5" Y="8.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>EAgAAAAAAAQACAAABABAAQBAQAAAAAAAAAQAAAAAAAI=</HashCode>
+      <HashCode>EAgAAAAAAAQACAAABABAAQBBUCAAAAAAAAQAAAAAAAI=</HashCode>
       <FileName>Vehicle.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -130,6 +130,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Goods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Vehicle_Body_Type">
+    <Position X="14.25" Y="8.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vehicle_Body_Type.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

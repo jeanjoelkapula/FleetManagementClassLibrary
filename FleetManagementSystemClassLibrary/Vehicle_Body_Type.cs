@@ -15,7 +15,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public int Description
+        public string Description
         {
             get => default;
             set
