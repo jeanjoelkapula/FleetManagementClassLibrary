@@ -36,5 +36,25 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+
+        public double calculateSalary()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static List<Timesheet> getAllTimesheets()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static Timesheet getTimesheet(int Timesheet_ID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static void logTimesheet()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
