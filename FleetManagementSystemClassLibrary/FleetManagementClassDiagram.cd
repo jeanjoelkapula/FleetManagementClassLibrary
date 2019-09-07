@@ -9,48 +9,11 @@
   <Comment CommentText="Trip contains a List of type Cargo. The association line to parts cannot be created with List&lt;&gt;">
     <Position X="8.435" Y="3.573" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FleetManagementSystemClassLibrary.User">
-    <Position X="5" Y="3.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAgASABAAAAEwAIAAABAAAAAAACAABAABAAAAE=</HashCode>
-      <FileName>User.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Role" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Role">
-    <Position X="0.75" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAgAAAEAAAAA=</HashCode>
-      <FileName>Role.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Trip">
-    <Position X="8.25" Y="4.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAZAAAAAAICAAABAAAAAAAABAABAAhAAAQAQAQAQAA=</HashCode>
-      <FileName>Trip.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="End_Location" />
-      <Property Name="Start_Location" />
-      <Property Name="User" />
-      <Property Name="Vehicle" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="FleetManagementSystemClassLibrary.Depot">
     <Position X="12.5" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AABAAAAEAAAAAAAAAAIEAAAAgIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Depot.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Vehicle_Type">
-    <Position X="6.5" Y="9.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AEAIAAAAAAAAAEAAAQAAEAAAACAAAAAAAAAAAACAAAA=</HashCode>
-      <FileName>Vehicle_Type.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Vehicle">
@@ -63,50 +26,12 @@
       <Property Name="Vehicle_Type" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Part">
-    <Position X="1" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAQBAA=</HashCode>
-      <FileName>Parts.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Service">
-    <Position X="4" Y="7.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAICAAAAABAAAAQABAEAAAAAAAACQAAAAIA=</HashCode>
-      <FileName>Service.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Vehicle" />
-      <Property Name="User" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="FleetManagementSystemClassLibrary.CargoType">
     <Position X="1.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAIAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAA=</HashCode>
       <FileName>CargoType.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Cargo">
-    <Position X="5.75" Y="0.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACQAAACAAgAAAAAAAAAAIAAAAAAAAAAAAAAACA=</HashCode>
-      <FileName>Cargo.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="CargoType" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Order">
-    <Position X="10.75" Y="2" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAEAAAAAAAgEAAAIAAgAAAAAAAAAAAABAAAAAAAAAAE=</HashCode>
-      <FileName>Order.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Customer" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Customer">
     <Position X="14.25" Y="1.5" Width="1.5" />
@@ -115,15 +40,19 @@
       <FileName>Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Timesheet">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+  <Class Name="FleetManagementSystemClassLibrary.Vehicle_Body_Type">
+    <Position X="14.25" Y="8.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAABAAwCAAAAQAAAQIACAAAAABAAAAAAACAAAAAAAAA=</HashCode>
-      <FileName>Timesheet.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vehicle_Body_Type.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="User" />
-    </ShowAsAssociation>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Cargo">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACQAAACAAgAAAAAAAAAAIAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Cargo.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Class Name="FleetManagementSystemClassLibrary.Goods">
     <Position X="8.75" Y="0.5" Width="1.5" />
@@ -132,11 +61,63 @@
       <FileName>Goods.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FleetManagementSystemClassLibrary.Vehicle_Body_Type">
-    <Position X="14.25" Y="8.5" Width="3" />
+  <Class Name="FleetManagementSystemClassLibrary.Order">
+    <Position X="10.75" Y="2" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Vehicle_Body_Type.cs</FileName>
+      <HashCode>AAEAAAAAAAgEAAAIAAgAAAAAAAAAAAABAAAAAAAAAAE=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Part">
+    <Position X="1" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAQBAA=</HashCode>
+      <FileName>Parts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Role">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAAgAAAEAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Service">
+    <Position X="4" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAICAAAAABAAAAQABAEAAAAAAAACQAAAAIA=</HashCode>
+      <FileName>Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Timesheet">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAwCAAAAQAAAQIACAAAAABAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Timesheet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Trip">
+    <Position X="8.25" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAZAAAAAAICAAABAAAAAAAABAABAAhAAAQAQAQAQAA=</HashCode>
+      <FileName>Trip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.User">
+    <Position X="5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgASABAAAAEwAIAAABAAAAAAACAABAABAAAAE=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FleetManagementSystemClassLibrary.Vehicle_Type">
+    <Position X="6.5" Y="9.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAIAAAAAAAAAEAAAQAAEAAAACAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Vehicle_Type.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
