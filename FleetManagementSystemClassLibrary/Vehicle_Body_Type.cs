@@ -15,14 +15,6 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        //public string Description
-        //{
-        //    get => default;
-        //    set
-        //    {
-        //    }
-        //}
-
         public string Description { get; set; }
     }
 }

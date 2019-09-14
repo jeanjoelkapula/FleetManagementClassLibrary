@@ -68,10 +68,7 @@ namespace FleetManagementSystemClassLibrary
 
         public Vehicle_Body_Type Vehicle_Body_Type
         {
-            get => default;
-            set
-            {
-            }
+            get; set;
         }
 
         public static List<Service> GetServiceHistory()
@@ -85,8 +82,7 @@ namespace FleetManagementSystemClassLibrary
                          s.Vehicle_Type = vt;
                          return s;
                      },
-                     splitOn: "Vehicle_ID, Description, Vehicle_Class"
-                      // splitOn: "Vehicle_ID, Status, Description"                     
+                     splitOn: "Vehicle_ID, Description, Vehicle_Class"                                 
                 ).ToList();
                 return output;
             }
