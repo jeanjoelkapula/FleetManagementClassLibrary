@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using Dapper;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -15,7 +18,7 @@ namespace FleetManagementSystemClassLibrary
         public string Registration_Number
         {
             get; set;
-        }
+        }    
 
         public string Manufacturer
         {
@@ -38,6 +41,13 @@ namespace FleetManagementSystemClassLibrary
         }
 
         public Vehicle_Type Vehicle_Type
+        {
+            get; set;
+        }
+
+
+
+        public string Model_Name
         {
             get; set;
         }
@@ -66,6 +76,10 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public string Status { get; set; }
+
+        public int Year { get; set; }
+
         public static void registerVehicle()
         {
             throw new System.NotImplementedException();
@@ -78,12 +92,21 @@ namespace FleetManagementSystemClassLibrary
 
         public static Vehicle getVehicle(int VehiclVehicle_ID)
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                Vehicle vehicle = connection.Query<Vehicle>("call GetVehicleDetails(@Vehicle_ID);", new { VehiclVehicle_ID }).SingleOrDefault();
+                return vehicle;
+            }
         }
-
+    
         public static void updateVehicle(int VehiclVehicle_ID)
         {
 
         }
-    }
+
+        private static string LoadConnectionString(string id = "fleetmanagementDB")
+        {
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
+    }  
 }

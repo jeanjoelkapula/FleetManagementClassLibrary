@@ -61,11 +61,33 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public Vehicle_Type Vehicle_Type
+        {
+            get; set;
+        }
+
+        public Vehicle_Body_Type Vehicle_Body_Type
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public static List<Service> GetServiceHistory()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service>("CALL GetServiceHistory();").ToList();
+                 var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistory();",  
+                     map:(s, v, bt, vt) => {
+                         s.Vehicle = v;
+                         s.Vehicle_Body_Type = bt;
+                         s.Vehicle_Type = vt;
+                         return s;
+                     },
+                     splitOn: "Vehicle_ID, Description, Vehicle_Class"
+                      // splitOn: "Vehicle_ID, Status, Description"                     
+                ).ToList();
                 return output;
             }
         }
