@@ -53,7 +53,7 @@ namespace FleetManagementSystemClassLibrary
 
         public List<Part> Parts
         {
-            get; set; 
+            get; set;
         }
 
         public User User
@@ -75,15 +75,67 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                 var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistory();",  
-                     map:(s, v, bt, vt) => {
-                         s.Vehicle = v;
-                         s.Vehicle_Body_Type = bt;
-                         s.Vehicle_Type = vt;
-                         return s;
-                     },
-                     splitOn: "Vehicle_ID, Description, Vehicle_Class"                                 
-                ).ToList();
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistory();",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class"
+               ).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceHistoryDaily(DateTime daily)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceHistoryYearly(DateTime yearStart, DateTime yearEnd)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryYearly(@yearStart, @yearEnd);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceHistoryMonthly(DateTime monthStart, DateTime monthEnd)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryMonthly(@monthStart, @monthEnd);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd }).ToList();
                 return output;
             }
         }
