@@ -90,6 +90,15 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
+        public static List<Vehicle> GetVehiclesForServiceEntry()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Vehicle>("CALL GetVehiclesForServiceEntry();").ToList();
+                return output;
+            }
+        }
+
         public static Vehicle getVehicle(int VehiclVehicle_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
@@ -101,7 +110,7 @@ namespace FleetManagementSystemClassLibrary
     
         public static void updateVehicle(int VehiclVehicle_ID)
         {
-
+            throw new System.NotImplementedException();
         }
 
         private static string LoadConnectionString(string id = "fleetmanagementDB")

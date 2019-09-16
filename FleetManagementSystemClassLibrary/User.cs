@@ -100,6 +100,15 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<User> GetMechanics()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<User>("CALL GetMechanics();").ToList();
+                return output;
+            }
+        }
+
         public static List<User> GetAllUsers()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
