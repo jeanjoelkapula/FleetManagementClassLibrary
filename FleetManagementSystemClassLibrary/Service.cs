@@ -80,7 +80,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service>("CALL GetServiceEntryServiceID();").ToList();                       
+                var output = connection.Query<Service>("CALL GetServiceEntryServiceID();").ToList();
                 return output;
             }
         }
@@ -103,6 +103,25 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+
+        public static List<Service> GetServiceHistoryPerMechanic(int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryPerMechanic(@userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { userID }).ToList();
+                return output;
+            }
+        }
+
+
         public static List<Service> GetServiceSchedules()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
@@ -117,6 +136,24 @@ namespace FleetManagementSystemClassLibrary
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class"
                ).ToList();
+                return output;
+            }
+        }
+
+
+        public static List<Service> GetServiceSchedulesMechanic(int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesMechanic(@userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { userID }).ToList();
                 return output;
             }
         }
@@ -138,10 +175,24 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<Service> GetServiceHistoryDailyMechanic(DateTime daily, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryDailyMechanic(@daily, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily, userID }).ToList();
+                return output;
+            }
+        }
 
-        
-
-                 public static List<Service> GetServiceAppointmentDaily(DateTime daily)
+        public static List<Service> GetServiceAppointmentDaily(DateTime daily)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
@@ -154,6 +205,24 @@ namespace FleetManagementSystemClassLibrary
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily }).ToList();
+                return output;
+            }
+        }
+
+
+        public static List<Service> GetServiceAppointmentDailyMechanic(DateTime daily, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentDailyMechanic(@daily, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily, userID }).ToList();
                 return output;
             }
         }
@@ -175,8 +244,27 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        
-                    public static List<Service> GetServiceAppointmentYearly(DateTime yearStart, DateTime yearEnd)
+
+
+        public static List<Service> GetServiceHistoryYearlyMechanic(DateTime yearStart, DateTime yearEnd, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryYearlyMechanic(@yearStart, @yearEnd, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd, userID }).ToList();
+                return output;
+            }
+        }
+
+
+        public static List<Service> GetServiceAppointmentYearly(DateTime yearStart, DateTime yearEnd)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
@@ -189,6 +277,25 @@ namespace FleetManagementSystemClassLibrary
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd }).ToList();
+                return output;
+            }
+        }
+
+
+
+        public static List<Service> GetServiceAppointmentYearlyMechanic(DateTime yearStart, DateTime yearEnd, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentYearlyMechanic(@yearStart, @yearEnd, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd, userID }).ToList();
                 return output;
             }
         }
@@ -210,8 +317,25 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        
-                    public static List<Service> GetServiceAppointmentMonthly(DateTime monthStart, DateTime monthEnd)
+
+        public static List<Service> GetServiceHistoryMonthlyMechanic(DateTime monthStart, DateTime monthEnd, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryMonthlyMechanic(@monthStart, @monthEnd, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd, userID }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceAppointmentMonthly(DateTime monthStart, DateTime monthEnd)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
@@ -228,12 +352,30 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static void AddServiceSchedule(string serviceID, int userID, int vehicleID, DateTime scheduled_Date, string serviceStatus, string serviceType,  string description)
+
+        public static List<Service> GetServiceAppointmentMonthlyMechanic(DateTime monthStart, DateTime monthEnd, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthlyMechanic(@monthStart, @monthEnd, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd, userID }).ToList();
+                return output;
+            }
+        }
+
+        public static void AddServiceSchedule(string serviceID, int userID, int vehicleID, DateTime scheduled_Date, string serviceStatus, string serviceType, string description)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
                 var output = connection.Execute("CALL AddServiceSchedule(@serviceID, @userID, @vehicleID, @scheduled_Date, @serviceStatus, @serviceType, @description);", new { serviceID, userID, vehicleID, scheduled_Date, serviceStatus, serviceType, description });
-            }            
+            }
         }
 
 

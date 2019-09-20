@@ -54,6 +54,8 @@ namespace FleetManagementSystemClassLibrary
 
         public string Status { get; set; }
 
+
+
         public static User RegisterUser(User user)
         {
             using(MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
