@@ -103,6 +103,48 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<Service> GetServiceHistoryStatus(string status)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryStatus(@status);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceSchedulesStatus(string status)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesStatus(@status);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                return output;
+            }
+        }
+
+        public static void UpdateServiceStatus(int vehicleID, string inService)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                connection.Execute("CALL UpdateServiceStatus(@vehicleID, @inService);", param: new { vehicleID, inService });
+            }
+        }
+
 
         public static List<Service> GetServiceHistoryPerMechanic(int userID)
         {
