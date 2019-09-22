@@ -173,11 +173,11 @@ namespace FleetManagementSystemClassLibrary
         }
 
 
-        public static void UpdateServiceStatus(int vehicleID, string inService)
+        public static void UpdateServiceStatus(int vehicleID, string inService, DateTime scheduledDate)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                connection.Execute("CALL UpdateServiceStatus(@vehicleID, @inService);", param: new { vehicleID, inService });
+                connection.Execute("CALL UpdateServiceStatus(@vehicleID, @inService, @scheduledDate);", param: new { vehicleID, inService, scheduledDate });
             }
         }
 
