@@ -137,6 +137,42 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+
+        public static List<Service> GetServiceHistoryStatusMechanic(string status, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryStatusMechanic(@status, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status, userID }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceSchedulesStatusMechanic(string status, int userID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesStatusMechanic(@status, @userID);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status, userID }).ToList();
+                return output;
+            }
+        }
+
+
         public static void UpdateServiceStatus(int vehicleID, string inService)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
