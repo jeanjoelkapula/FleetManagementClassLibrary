@@ -182,6 +182,14 @@ namespace FleetManagementSystemClassLibrary
         }
 
 
+        public static void UpdateServiceStatusCompleted(int vehicleID, string inService, DateTime scheduledDate, DateTime dateNow)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                connection.Execute("CALL UpdateServiceStatusCompleted(@vehicleID, @inService, @scheduledDate, @dateNow);", param: new { vehicleID, inService, scheduledDate, dateNow });
+            }
+        }
+
         public static List<Service> GetServiceHistoryPerMechanic(int userID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))

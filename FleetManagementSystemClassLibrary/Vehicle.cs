@@ -107,7 +107,15 @@ namespace FleetManagementSystemClassLibrary
                 return vehicle;
             }
         }
-    
+
+        public static void UpdateVehicleStatus(int vehicleID, string inService)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                connection.Execute("CALL UpdateVehicleStatus(@vehicleID, @inService);", param: new { vehicleID, inService });
+            }
+        }
+
         public static void updateVehicle(int VehiclVehicle_ID)
         {
             throw new System.NotImplementedException();
