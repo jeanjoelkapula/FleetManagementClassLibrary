@@ -190,6 +190,15 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+
+        public static void UpdateServiceCost(string serviceID, int cost)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                connection.Execute("CALL UpdateServiceCost(@serviceID, @cost);", param: new { serviceID, cost });
+            }
+        }
+
         public static List<Service> GetServiceHistoryPerMechanic(int userID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
