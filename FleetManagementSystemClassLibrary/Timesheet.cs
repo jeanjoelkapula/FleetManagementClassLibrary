@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -17,7 +20,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public int Hours_Worked
+        public decimal Hours_Worked
         {
             get; set;
         }
@@ -37,24 +40,64 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public double calculateSalary()
+        public string Status
         {
-            throw new System.NotImplementedException();
+            get; set;
         }
 
-        public static List<Timesheet> getAllTimesheets()
+        public decimal CalculateSalary()
         {
-            throw new System.NotImplementedException();
+            decimal overtimeHours = 0;
+
+            if(Hours_Worked > 160)
+            {
+                overtimeHours = Hours_Worked - 160;
+            }
+
+            decimal workingHours = Hours_Worked - overtimeHours;
+            decimal salary = (workingHours * Hourly_Rate) + (overtimeHours * Overtime_Rate);
+            return salary;
         }
 
-        public static Timesheet getTimesheet(int Timesheet_ID)
+        public static List<Timesheet> GetAllTimesheets()
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Timesheet>("CALL GetAllTimesheets()").ToList();
+                return output;
+            }
         }
 
-        public static void logTimesheet()
+        public static Timesheet GetTimesheet(int Timesheet_ID)
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Timesheet>("CALL GetTimesheet(@Timesheet_ID)",new {Timesheet_ID}).FirstOrDefault();
+                return output;
+            }
+        }
+
+        public Timesheet logTimesheet()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Timesheet>("CALL logTimesheet(@Timesheet_ID, @User.User_ID, @Submission_Date, @Hours_Worked, @Hourly_Rate, @Overtime_Rate);", this).FirstOrDefault();
+                return output;
+            }
+        }
+        public Timesheet updateStatus(string status)
+        {
+            Status = status;
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Timesheet>("CALL updateStatus(@Timesheet_ID, @Status);",this).FirstOrDefault();
+                return output;
+            }
+        }
+
+        private static string LoadConnectionString(string id = "fleetmanagementDB")
+        {
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
     }
 }

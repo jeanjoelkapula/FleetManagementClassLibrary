@@ -52,6 +52,13 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public string Fullname
+        {
+            get{
+                return First_Name + " " + Last_Name;
+            }              
+        }
+
         public string Status { get; set; }
 
         public static User RegisterUser(User user)
