@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -12,7 +15,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public string Registration_Number
+        public string Plate_Number
         {
             get; set;
         }
@@ -22,10 +25,12 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        /*
         public decimal Engine_Size
         {
             get; set;
         }
+        */
 
         public int Current_Odometer
         {
@@ -37,19 +42,19 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        /*
         public Vehicle_Type Vehicle_Type
         {
             get; set;
         }
+        */
 
-        public int Weight
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public int Year { get; set; }
+        
+        public string Status { get; set; }
 
+
+        /*
         public int Maximum_Payload
         {
             get => default;
@@ -57,7 +62,9 @@ namespace FleetManagementSystemClassLibrary
             {
             }
         }
+        */
 
+        /*
         public Vehicle_Body_Type Vehicle_Body_Type
         {
             get => default;
@@ -65,24 +72,72 @@ namespace FleetManagementSystemClassLibrary
             {
             }
         }
+        */
 
-        public static void registerVehicle()
+        public string Vehicle_Class { get; set; }
+
+        public int Maximum_Load { get; set; }
+
+        public decimal Fuel_Efficiency { get; set; }
+
+        public decimal Weight { get; set; }
+
+        public Vehicle()
+        {
+            //blank on purpose
+        }
+
+        public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, string vehicle_Class, int maximum_Load, decimal fuel_Efficiency, decimal weight)
+        {
+            Plate_Number = plate_Number;
+            Manufacturer = manufacturer;
+            Current_Odometer = current_Odometer;
+            Next_Service_Odometer = next_Service_Odometer;
+            Year = year;
+            Status = status;
+            Vehicle_Class = vehicle_Class;
+            Maximum_Load = maximum_Load;
+            Fuel_Efficiency = fuel_Efficiency;
+            Weight = weight;
+        }
+
+        public bool RegisterVehicle()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Vehicle_Class, @Maximum_Load, @Fuel_Efficiency, @Weight );", this).ToList();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+                
+                
+            }
+        }
+
+        public static List<Vehicle> GetAllVehicles()
         {
             throw new System.NotImplementedException();
         }
 
-        public static List<Vehicle> getAllVehicles()
+        public static Vehicle GetVehicle(int VehiclVehicle_ID)
         {
             throw new System.NotImplementedException();
         }
 
-        public static Vehicle getVehicle(int VehiclVehicle_ID)
+        public static void UpdateVehicle(int VehiclVehicle_ID)
         {
             throw new System.NotImplementedException();
         }
 
-        public static void updateVehicle(int VehiclVehicle_ID)
+        private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
+
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
 
         }
     }
