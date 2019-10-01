@@ -119,9 +119,23 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static List<Vehicle> GetAllVehicles()
+        public List<Vehicle> GetAllUsableVehicles()
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Vehicle>("CALL GetAllUsableVehicles;", new DynamicParameters()).ToList();
+
+                return output;
+            }
+        }
+        public List<Vehicle> GetAllVehicles()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Vehicle>("CALL GetAllVehicles;", new DynamicParameters()).ToList();
+
+                return output;
+            }
         }
 
         public static Vehicle GetVehicle(int VehiclVehicle_ID)
