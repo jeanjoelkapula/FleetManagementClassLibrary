@@ -45,6 +45,14 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public int User_ID
+        {
+            get
+            {
+                return User.User_ID;
+            }
+        }
+
         public decimal CalculateSalary()
         {
             decimal overtimeHours = 0;
@@ -125,12 +133,11 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public Timesheet LogTimesheet()
+        public void LogTimesheet()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL LogTimesheet( @User.User_ID, @Submission_Date, @Hours_Worked, @Hourly_Rate, @Overtime_Rate);", this).FirstOrDefault();
-                return output;
+                 connection.Execute("CALL LogTimesheet( @User_ID, @Submission_Date, @Hours_Worked);",this); 
             }
         }
         public Timesheet updateStatus(string status)
