@@ -63,8 +63,50 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL GetAllTimesheets()").ToList();
-                return output;
+                var timesheets = connection.Query<Timesheet, User, Timesheet>(
+                "CALL GetAllTimesheets();",
+                (timesheet, user) =>
+                {
+                    timesheet.User = user;
+                    return timesheet;
+                },
+                splitOn: "User_ID").ToList();
+                return timesheets;
+              
+            }
+        }
+
+        public static List<Timesheet> GetTimesheetsByUser(int User_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var timesheets = connection.Query<Timesheet, User, Timesheet>(
+                "CALL GetTimesheetsByUser(@User_ID);",
+                (timesheet, user) =>
+                {
+                    timesheet.User = user;
+                    return timesheet;
+                },
+                splitOn: "User_ID", param: new { User_ID }).ToList();
+                return timesheets;
+
+            }
+        }
+
+        public static List<Timesheet> GetTimesheetsByStatus(string Status)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var timesheets = connection.Query<Timesheet, User, Timesheet>(
+                "CALL GetTimesheetsByStatus(@Status);",
+                (timesheet, user) =>
+                {
+                    timesheet.User = user;
+                    return timesheet;
+                },
+                splitOn: "User_ID", param: new { Status }).ToList();
+                return timesheets;
+
             }
         }
 
@@ -72,16 +114,22 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL GetTimesheet(@Timesheet_ID)",new {Timesheet_ID}).FirstOrDefault();
+                var output = connection.Query<Timesheet, User,Timesheet>("CALL GetTimesheet(@Timesheet_ID)",
+                    map: (t, u) =>
+                    {
+                        t.User = u;
+                        return t;
+                    },
+                    splitOn: "User_ID", param: new { Timesheet_ID }).FirstOrDefault();
                 return output;
             }
         }
 
-        public Timesheet logTimesheet()
+        public Timesheet LogTimesheet()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL logTimesheet(@Timesheet_ID, @User.User_ID, @Submission_Date, @Hours_Worked, @Hourly_Rate, @Overtime_Rate);", this).FirstOrDefault();
+                var output = connection.Query<Timesheet>("CALL LogTimesheet( @User.User_ID, @Submission_Date, @Hours_Worked, @Hourly_Rate, @Overtime_Rate);", this).FirstOrDefault();
                 return output;
             }
         }
