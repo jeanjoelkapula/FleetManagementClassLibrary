@@ -74,7 +74,6 @@ namespace FleetManagementSystemClassLibrary
         }
         */
 
-        public string Vehicle_Class { get; set; }
 
         public int Maximum_Load { get; set; }
 
@@ -82,23 +81,39 @@ namespace FleetManagementSystemClassLibrary
 
         public decimal Weight { get; set; }
 
+        public int Vehicle_Class { get; set; }
+
+        public int Vehicle_Configuration { get; set; }
+
         public Vehicle()
         {
             //blank on purpose
         }
 
-        public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, string vehicle_Class, int maximum_Load, decimal fuel_Efficiency, decimal weight)
+        public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, int maximum_Load, decimal fuel_Efficiency, decimal weight, int vehicle_class, int vehicle_configuration)
         {
             Plate_Number = plate_Number;
+            //Console.WriteLine(plate_Number);
             Manufacturer = manufacturer;
+            //Console.WriteLine(manufacturer);
             Current_Odometer = current_Odometer;
+            //Console.WriteLine(current_Odometer);
             Next_Service_Odometer = next_Service_Odometer;
+            //Console.WriteLine(next_Service_Odometer);
             Year = year;
+            //Console.WriteLine(year);
             Status = status;
-            Vehicle_Class = vehicle_Class;
+            //Console.WriteLine(status);
             Maximum_Load = maximum_Load;
+            //Console.WriteLine(maximum_Load);
             Fuel_Efficiency = fuel_Efficiency;
+            //Console.WriteLine(fuel_Efficiency);
             Weight = weight;
+            //Console.WriteLine(weight);
+            Vehicle_Class = vehicle_class;
+            //Console.WriteLine(vehicle_class);
+            Vehicle_Configuration = vehicle_configuration;
+            //Console.WriteLine(vehicle_configuration);
         }
 
         public bool RegisterVehicle()
@@ -107,7 +122,7 @@ namespace FleetManagementSystemClassLibrary
             {
                 try
                 {
-                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Vehicle_Class, @Maximum_Load, @Fuel_Efficiency, @Weight );", this).ToList();
+                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Class, @Vehicle_Configuration);", this).ToList();
                     return true;
                 }
                 catch
