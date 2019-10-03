@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Dapper;
+using MySql.Data.MySqlClient;
 namespace FleetManagementSystemClassLibrary
 {
     public class Vehicle
@@ -12,7 +13,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public string Registration_Number
+        public string Plate_Number
         {
             get; set;
         }
@@ -37,7 +38,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public Vehicle_Type Vehicle_Type
+        public string Vehicle_Class
         {
             get; set;
         }
@@ -76,9 +77,13 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
-        public static Vehicle getVehicle(int VehiclVehicle_ID)
+        public static Vehicle getVehicle(int Vehicle_ID)
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Vehicle>("CALL GetVehicle(@Vehicle_ID);", new { Vehicle_ID }).FirstOrDefault();
+                return output;
+            }
         }
 
         public static void updateVehicle(int VehiclVehicle_ID)
