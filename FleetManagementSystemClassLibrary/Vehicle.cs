@@ -164,6 +164,22 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public bool SuspendVehicle(int ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    var output = connection.Query<Vehicle>("CALL SuspendVehicle(@id)", new {id = ID });
+                        return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
 
