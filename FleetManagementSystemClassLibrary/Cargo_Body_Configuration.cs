@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FleetManagementSystemClassLibrary
 {
-    public class Vehicle_Body_Type
+    public class Cargo_Body_Configuration
     {
         public int Body_Type_ID
         {
@@ -15,7 +15,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public string Description
+        public string Tag
         {
             get => default;
             set

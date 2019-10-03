@@ -55,7 +55,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public Vehicle_Body_Type Vehicle_Body_Type
+        public Cargo_Body_Configuration Vehicle_Body_Type
         {
             get; set;
         }
@@ -64,7 +64,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistory();",
+                var output = connection.Query<Service, Vehicle, Cargo_Body_Configuration, Vehicle_Type, Service>("CALL GetServiceHistory();",
                     map: (s, v, bt, vt) => {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;

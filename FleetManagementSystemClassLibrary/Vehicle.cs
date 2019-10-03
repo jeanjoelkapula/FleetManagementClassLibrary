@@ -81,39 +81,39 @@ namespace FleetManagementSystemClassLibrary
 
         public decimal Weight { get; set; }
 
-        public int Vehicle_Class { get; set; }
+        public int Vehicle_Type_ID { get; set; }
 
-        public int Vehicle_Configuration { get; set; }
+        public int Cargo_Body_Configuration_ID { get; set; }
 
         public Vehicle()
         {
             //blank on purpose
         }
 
-        public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, int maximum_Load, decimal fuel_Efficiency, decimal weight, int vehicle_class, int vehicle_configuration)
+        public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, int maximum_Load, decimal fuel_Efficiency, decimal weight, int vehicle_type_ID, int cargo_body_configuration_ID)
         {
             Plate_Number = plate_Number;
-            //Console.WriteLine(plate_Number);
+           
             Manufacturer = manufacturer;
-            //Console.WriteLine(manufacturer);
+            
             Current_Odometer = current_Odometer;
-            //Console.WriteLine(current_Odometer);
+           
             Next_Service_Odometer = next_Service_Odometer;
-            //Console.WriteLine(next_Service_Odometer);
+           
             Year = year;
-            //Console.WriteLine(year);
+            
             Status = status;
-            //Console.WriteLine(status);
+            
             Maximum_Load = maximum_Load;
-            //Console.WriteLine(maximum_Load);
+            
             Fuel_Efficiency = fuel_Efficiency;
-            //Console.WriteLine(fuel_Efficiency);
+            
             Weight = weight;
-            //Console.WriteLine(weight);
-            Vehicle_Class = vehicle_class;
-            //Console.WriteLine(vehicle_class);
-            Vehicle_Configuration = vehicle_configuration;
-            //Console.WriteLine(vehicle_configuration);
+            
+            Vehicle_Type_ID = vehicle_type_ID;
+            
+            Cargo_Body_Configuration_ID = cargo_body_configuration_ID;
+            
         }
 
         public bool RegisterVehicle()
@@ -122,7 +122,7 @@ namespace FleetManagementSystemClassLibrary
             {
                 try
                 {
-                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Class, @Vehicle_Configuration);", this).ToList();
+                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID);", new { Plate_Number = Plate_Number, Manufacturer= Manufacturer, Current_Odometer = Current_Odometer, Next_Service_Odometer = Next_Service_Odometer,  Year = Year, Status = Status, Maximum_Load = Maximum_Load, Fuel_Efficiency = Fuel_Efficiency, Weight = Weight, Vehicle_Type_ID = Vehicle_Type_ID, Cargo_Body_Configuration_ID = Cargo_Body_Configuration_ID }).ToList();
                     return true;
                 }
                 catch
@@ -134,33 +134,34 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public List<Vehicle> GetAllUsableVehicles()
-        {
-            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
-            {
-                var output = connection.Query<Vehicle>("CALL GetAllUsableVehicles;", new DynamicParameters()).ToList();
-
-                return output;
-            }
-        }
+        
         public List<Vehicle> GetAllVehicles()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Vehicle>("CALL GetAllVehicles;", new DynamicParameters()).ToList();
+                var output = connection.Query<Vehicle>("CALL GetVehicles;", new DynamicParameters()).ToList();
 
                 return output;
             }
         }
+                
 
-        public static Vehicle GetVehicle(int VehiclVehicle_ID)
+        public bool UpdateVehicle()
         {
-            throw new System.NotImplementedException();
-        }
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
 
-        public static void UpdateVehicle(int VehiclVehicle_ID)
-        {
-            throw new System.NotImplementedException();
+                try
+                {
+                    var output = connection.Query<Vehicle>("CALL UpdateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID);", this).ToList();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+
+            }
         }
 
         private static string LoadConnectionString(string id = "fleetmanagementDB")
