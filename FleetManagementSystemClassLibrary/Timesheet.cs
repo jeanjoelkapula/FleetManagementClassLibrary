@@ -25,16 +25,6 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public decimal Hourly_Rate
-        {
-            get; set;
-        }
-
-        public decimal Overtime_Rate
-        {
-            get; set;
-        }
-
         public User User
         {
             get; set;
@@ -53,7 +43,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public decimal CalculateSalary()
+        public decimal CalculateSalary(Decimal Hourly_Rate)
         {
             decimal overtimeHours = 0;
 
@@ -63,7 +53,7 @@ namespace FleetManagementSystemClassLibrary
             }
 
             decimal workingHours = Hours_Worked - overtimeHours;
-            decimal salary = (workingHours * Hourly_Rate) + (overtimeHours * Overtime_Rate);
+            decimal salary = (workingHours * Hourly_Rate) + (overtimeHours * (Hourly_Rate * (decimal) 1.5));
             return salary;
         }
 
