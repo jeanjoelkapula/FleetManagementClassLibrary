@@ -68,7 +68,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public Vehicle_Body_Type Vehicle_Body_Type
+        public CargoConfiguration Vehicle_Body_Type
         {
             get => default;
             set

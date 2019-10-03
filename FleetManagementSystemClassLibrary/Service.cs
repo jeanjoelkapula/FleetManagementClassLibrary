@@ -71,7 +71,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public Vehicle_Body_Type Vehicle_Body_Type
+        public CargoConfiguration Vehicle_Body_Type
         {
             get; set;
         }
@@ -89,7 +89,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistory();",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistory();",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -107,7 +107,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryStatus(@status);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryStatus(@status);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -124,7 +124,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesStatus(@status);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesStatus(@status);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -142,7 +142,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryStatusMechanic(@status, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryStatusMechanic(@status, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -159,7 +159,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesStatusMechanic(@status, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesStatusMechanic(@status, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -203,7 +203,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryPerMechanic(@userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryPerMechanic(@userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -221,7 +221,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedules();",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedules();",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -240,7 +240,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceSchedulesMechanic(@userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesMechanic(@userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -257,7 +257,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -274,7 +274,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryDailyMechanic(@daily, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryDailyMechanic(@daily, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -291,7 +291,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -309,7 +309,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentDailyMechanic(@daily, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentDailyMechanic(@daily, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -326,7 +326,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryYearly(@yearStart, @yearEnd);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryYearly(@yearStart, @yearEnd);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -345,7 +345,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryYearlyMechanic(@yearStart, @yearEnd, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryYearlyMechanic(@yearStart, @yearEnd, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -363,7 +363,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentYearly(@yearStart, @yearEnd);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentYearly(@yearStart, @yearEnd);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -382,7 +382,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentYearlyMechanic(@yearStart, @yearEnd, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentYearlyMechanic(@yearStart, @yearEnd, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -399,7 +399,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryMonthly(@monthStart, @monthEnd);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryMonthly(@monthStart, @monthEnd);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -417,7 +417,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceHistoryMonthlyMechanic(@monthStart, @monthEnd, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryMonthlyMechanic(@monthStart, @monthEnd, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -434,7 +434,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthly(@monthStart, @monthEnd);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthly(@monthStart, @monthEnd);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
@@ -452,7 +452,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Vehicle_Body_Type, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthlyMechanic(@monthStart, @monthEnd, @userID);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthlyMechanic(@monthStart, @monthEnd, @userID);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
