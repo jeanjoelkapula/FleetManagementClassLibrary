@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Text;
+
 
 namespace FleetManagementSystemClassLibrary
 {
@@ -47,6 +50,33 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public Vehicle_Type Vehicle_Type
+        {
+            get; set;
+        }
+
+        public Cargo_Body_Configuration Vehicle_Body_Type
+        {
+            get; set;
+        }
+
+        public static List<Service> GetServiceHistory()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, Cargo_Body_Configuration, Vehicle_Type, Service>("CALL GetServiceHistory();",
+                    map: (s, v, bt, vt) => {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class"
+               ).ToList();
+                return output;
+            }
+        }
+
         public static void scheduleService()
         {
             throw new System.NotImplementedException();
@@ -65,6 +95,13 @@ namespace FleetManagementSystemClassLibrary
         public static void updateService(int Service_ID)
         {
             throw new System.NotImplementedException();
+        }
+
+        private static string LoadConnectionString(string id = "fleetmanagementDB")
+        {
+
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+
         }
     }
 }
