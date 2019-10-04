@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MySql.Data.MySqlClient;
+using MySql;
+using Dapper;
 
 namespace FleetManagementSystemClassLibrary
 {
@@ -36,5 +39,15 @@ namespace FleetManagementSystemClassLibrary
         {
             throw new System.NotImplementedException();
         }
+
+        public static Depot GetDepot(int Depot_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Depot>("CALL getDepot(@Depot_ID);", new { Depot_ID }).FirstOrDefault();
+                return output;
+            }
+        }
+
     }
 }
