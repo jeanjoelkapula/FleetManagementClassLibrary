@@ -21,7 +21,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public string Job_Details
+        public string Service_Type
         {
             get; set;
         }
@@ -291,7 +291,7 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryDaily(@daily);",
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentDaily(@daily);",
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
