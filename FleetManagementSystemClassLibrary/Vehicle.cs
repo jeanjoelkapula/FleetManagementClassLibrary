@@ -181,6 +181,15 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public Vehicle getVehicle(int Vehicle_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Vehicle>("CALL getVehicle(@Vehicle_ID);", new { Vehicle_ID }).FirstOrDefault();
+                return output;
+            }
+        }
+
         private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
 

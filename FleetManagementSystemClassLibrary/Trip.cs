@@ -100,9 +100,9 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Query<Trip>("CALL ViewAllPendingTrips();");
+                var output = connection.Query<Trip>("CALL ViewAllPendingTrips();").ToList(); ;
 
-                IEnumerable<dynamic> iter = connection.Query("CALL ViewAllPendingTrips();");
+                IEnumerable<dynamic> iter = connection.Query("CALL ViewAllPendingTrips();").ToList();
                 int count = 0;
                 foreach (var row in iter)
                 {
