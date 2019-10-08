@@ -100,9 +100,9 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Query<Trip>("CALL ViewAllPendingTrips();").ToList(); ;
-
-                IEnumerable<dynamic> iter = connection.Query("CALL ViewAllPendingTrips();").ToList();
+                var output = connection.Query<Trip>("CALL ViewAllPendingTrips();", new DynamicParameters()).ToList(); ;
+                Vehicle a = new Vehicle();
+                IEnumerable<dynamic> iter = connection.Query("CALL ViewAllPendingTrips();", new DynamicParameters()).ToList();
                 int count = 0;
                 foreach (var row in iter)
                 {
@@ -113,7 +113,7 @@ namespace FleetManagementSystemClassLibrary
                     output.ElementAt<Trip>(count).Start_Location = Depot.GetDepot(row.Start_Location_ID);
                     output.ElementAt<Trip>(count).End_Location = Depot.GetDepot(row.End_Location_ID);
                     output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
-                    output.ElementAt<Trip>(count).Vehicle = Vehicle.getVehicle(Convert.ToInt32(row.Vehicle_ID));
+                    output.ElementAt<Trip>(count).Vehicle = a.getVehicle(Convert.ToInt32(row.Vehicle_ID));
                     output.ElementAt<Trip>(count).Start_Date = row.Start_Date;
                     count++;
                 }
