@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-
+using Dapper;
+using MySql.Data.MySqlClient;
 namespace FleetManagementSystemClassLibrary
 {
     public class Vehicle
@@ -18,7 +19,7 @@ namespace FleetManagementSystemClassLibrary
         public string Plate_Number
         {
             get; set;
-        }    
+        }
 
         public string Manufacturer
         {
@@ -53,10 +54,6 @@ namespace FleetManagementSystemClassLibrary
         
         public string Status { get; set; }
 
-        public string Model_Name
-        {
-            get; set;
-        }
 
         /*
         public int Maximum_Payload
@@ -78,7 +75,6 @@ namespace FleetManagementSystemClassLibrary
         }
         */
 
-        public CargoConfiguration Vehicle_Body_Type
 
         public int Maximum_Load { get; set; }
 
@@ -151,11 +147,6 @@ namespace FleetManagementSystemClassLibrary
         }
                 
 
-        public string Status { get; set; }
-
-        public int Year { get; set; }
-
-        public static void registerVehicle();
         public bool UpdateVehicle()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
@@ -190,37 +181,20 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-
-        public static List<Vehicle> GetVehiclesForServiceEntry()
-        {
-            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
-            {
-                var output = connection.Query<Vehicle>("CALL GetVehiclesForServiceEntry();").ToList();
-                return output;
-            }
-        }
-
-        public static void UpdateVehicleStatus(int vehicleID, string inService)
-        {
-            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
-            {
-                connection.Execute("CALL UpdateVehicleStatus(@vehicleID, @inService);", param: new { vehicleID, inService });
-            }
-        }
-      
         public Vehicle getVehicle(int Vehicle_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
                 var output = connection.Query<Vehicle>("CALL getVehicle(@Vehicle_ID);", new { Vehicle_ID }).FirstOrDefault();
                 return output;
-
             }
         }
 
         private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
+
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+
         }
-    }  
+    }
 }

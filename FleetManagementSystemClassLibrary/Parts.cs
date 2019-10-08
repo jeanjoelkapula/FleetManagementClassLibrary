@@ -22,11 +22,6 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public decimal Cost
-        {
-            get; set;
-        }
-
         public void addPart()
         {
             throw new System.NotImplementedException();
