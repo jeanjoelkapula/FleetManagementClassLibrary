@@ -37,6 +37,14 @@ namespace FleetManagementSystemClassLibrary
                 return output;
             }
         }
+        public static Role GetRoleByID(int ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Role>("CALL GetRoleByID(@ID);", new { ID }).FirstOrDefault();
+                return output;
+            }
+        }
 
         public void addRole()
         {

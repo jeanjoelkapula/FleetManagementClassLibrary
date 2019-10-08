@@ -52,7 +52,15 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public string Fullname
+        {
+            get{
+                return First_Name + " " + Last_Name;
+            }              
+        }
+
         public string Status { get; set; }
+        public decimal Hourly_Rate { get; set; }
 
 
 
