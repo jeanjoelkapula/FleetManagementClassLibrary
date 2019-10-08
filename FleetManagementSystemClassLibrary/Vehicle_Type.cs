@@ -12,34 +12,10 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public string Vehicle_Class
+        public string Tag
         {
             get; set;
         }
-
-        public int Maximum_Load
-        {
-            get; set;
-        }
-
-        public decimal Fuel_Efficiency
-        {
-            get; set;
-        }
-
-        public Decimal Weight
-        {
-            get; set;
-        }
-
-        public void addVehicleType()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void editVehicleType()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

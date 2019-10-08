@@ -1,3 +1,4 @@
+
 ﻿using System;
 using Dapper;
 using System.Data;
@@ -5,7 +6,7 @@ using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 
 namespace FleetManagementSystemClassLibrary
 {
@@ -67,6 +68,16 @@ namespace FleetManagementSystemClassLibrary
         }
 
         public Vehicle_Type Vehicle_Type
+        {
+            get; set;
+        }
+
+        public Cargo_Body_Configuration Vehicle_Body_Type
+        {
+            get; set;
+        }
+
+        public static void scheduleService()
         {
             get; set;
         }
