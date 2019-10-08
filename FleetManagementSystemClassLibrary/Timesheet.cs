@@ -42,14 +42,15 @@ namespace FleetManagementSystemClassLibrary
                 return User.User_ID;
             }
         }
+        public decimal Hourly_Rate { get; set; }
 
         public decimal CalculateSalary(Decimal Hourly_Rate)
         {
             decimal overtimeHours = 0;
 
-            if(Hours_Worked > 160)
+            if(Hours_Worked > 40)
             {
-                overtimeHours = Hours_Worked - 160;
+                overtimeHours = Hours_Worked - 40;
             }
 
             decimal workingHours = Hours_Worked - overtimeHours;

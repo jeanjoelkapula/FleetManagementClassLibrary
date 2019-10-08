@@ -60,6 +60,7 @@ namespace FleetManagementSystemClassLibrary
         }
 
         public string Status { get; set; }
+        public decimal Hourly_Rate { get; set; }
 
         public static User RegisterUser(User user)
         {
