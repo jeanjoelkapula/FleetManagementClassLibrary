@@ -4,7 +4,6 @@ using Dapper;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 
 namespace FleetManagementSystemClassLibrary
 {
@@ -15,7 +14,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public string Registration_Number
+        public string Plate_Number
         {
             get; set;
         }
@@ -52,10 +51,7 @@ namespace FleetManagementSystemClassLibrary
 
         public int Maximum_Payload
         {
-            get => default;
-            set
-            {
-            }
+            get; set;
         }
 
         public decimal Weight { get; set; }
@@ -74,7 +70,7 @@ namespace FleetManagementSystemClassLibrary
 
         public int Vehicle_Type_ID { get; set; }
 
-        public int Cargo_Body_Configuration_ID { get; set; }
+        public int Cargo_Configuration_ID { get; set; }
 
         public decimal Engine_Size
         {
@@ -88,7 +84,7 @@ namespace FleetManagementSystemClassLibrary
 
         public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, int maximum_Load, decimal fuel_Efficiency, decimal weight, int vehicle_type_ID, int cargo_body_configuration_ID, string modelName)
         {
-            Registration_Number = plate_Number;
+            Plate_Number = plate_Number;
 
             Manufacturer = manufacturer;
 
@@ -108,7 +104,7 @@ namespace FleetManagementSystemClassLibrary
 
             Vehicle_Type_ID = vehicle_type_ID;
 
-            Cargo_Body_Configuration_ID = cargo_body_configuration_ID;
+            Cargo_Configuration_ID = cargo_body_configuration_ID;
 
             Model_Name = modelName;
 
@@ -116,15 +112,38 @@ namespace FleetManagementSystemClassLibrary
 
         public bool RegisterVehicle()
         {
+            
+            Console.WriteLine("VehID: " + Vehicle_ID);
+            Console.WriteLine("RegNo: " + Plate_Number);
+            Console.WriteLine("Manuf: " + Manufacturer);
+            Console.WriteLine("curod: " + Current_Odometer);
+            Console.WriteLine("nexod: " + Next_Service_Odometer);
+            Console.WriteLine("year : " + Year);
+            Console.WriteLine("statu: " + Status);
+            Console.WriteLine("maxpa: " + Maximum_Payload);
+            Console.WriteLine("weigh: " + Weight);
+            Console.WriteLine("vtyid: " + Vehicle_Type_ID);
+            Console.WriteLine("caboc: " + Cargo_Configuration_ID);
+            Console.WriteLine("modna: " + Model_Name);
+            
+
+
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
                 try
                 {
-                    var output = connection.Query<Vehicle>("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID);", new { Plate_Number = Registration_Number, Manufacturer = Manufacturer, Current_Odometer = Current_Odometer, Next_Service_Odometer = Next_Service_Odometer, Year = Year, Status = Status, Maximum_Load = Maximum_Payload, Fuel_Efficiency = Fuel_Efficiency, Weight = Weight, Vehicle_Type_ID = Vehicle_Type_ID, Cargo_Body_Configuration_ID = Cargo_Body_Configuration_ID }).ToList();
+                    connection.Query("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Payload, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Configuration_ID, @Model_Name);", 
+                                                        new {Plate_Number, Manufacturer, Current_Odometer, Next_Service_Odometer, Year, Status, Maximum_Payload, Fuel_Efficiency, Weight, Vehicle_Type_ID, Cargo_Configuration_ID, Model_Name });
+
+
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                    Console.WriteLine(e.Source);
+                    Console.WriteLine(e.InnerException);
                     return false;
                 }
 
@@ -137,8 +156,9 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Vehicle>("CALL GetVehicles;", new DynamicParameters()).ToList();
-
+                List<Vehicle> output = connection.Query<Vehicle>("CALL GetVehicles;", this).ToList();
+                             
+                                
                 return output;
             }
         }
@@ -151,7 +171,7 @@ namespace FleetManagementSystemClassLibrary
 
                 try
                 {
-                    var output = connection.Query<Vehicle>("CALL UpdateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID);", this).ToList();
+                    var output = connection.Query<Vehicle>("CALL UpdateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID, @Model_Name);", this).ToList();
                     return true;
                 }
                 catch
@@ -225,6 +245,7 @@ namespace FleetManagementSystemClassLibrary
         {
             throw new System.NotImplementedException();
         }
-               
-    }  
+
+
+    }
 }
