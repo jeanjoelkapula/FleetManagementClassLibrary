@@ -49,7 +49,7 @@ namespace FleetManagementSystemClassLibrary
         }
 
 
-        public int Maximum_Payload
+        public int Maximum_Load
         {
             get; set;
         }
@@ -96,7 +96,7 @@ namespace FleetManagementSystemClassLibrary
 
             Status = status;
 
-            Maximum_Payload = maximum_Load;
+            Maximum_Load = maximum_Load;
 
             Fuel_Efficiency = fuel_Efficiency;
 
@@ -112,28 +112,14 @@ namespace FleetManagementSystemClassLibrary
 
         public bool RegisterVehicle()
         {
-            
-            Console.WriteLine("VehID: " + Vehicle_ID);
-            Console.WriteLine("RegNo: " + Plate_Number);
-            Console.WriteLine("Manuf: " + Manufacturer);
-            Console.WriteLine("curod: " + Current_Odometer);
-            Console.WriteLine("nexod: " + Next_Service_Odometer);
-            Console.WriteLine("year : " + Year);
-            Console.WriteLine("statu: " + Status);
-            Console.WriteLine("maxpa: " + Maximum_Payload);
-            Console.WriteLine("weigh: " + Weight);
-            Console.WriteLine("vtyid: " + Vehicle_Type_ID);
-            Console.WriteLine("caboc: " + Cargo_Configuration_ID);
-            Console.WriteLine("modna: " + Model_Name);
-            
-
+                
 
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
                 try
                 {
-                    connection.Query("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Payload, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Configuration_ID, @Model_Name);", 
-                                                        new {Plate_Number, Manufacturer, Current_Odometer, Next_Service_Odometer, Year, Status, Maximum_Payload, Fuel_Efficiency, Weight, Vehicle_Type_ID, Cargo_Configuration_ID, Model_Name });
+                    connection.Query("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Configuration_ID, @Model_Name);", 
+                                                        new {Plate_Number, Manufacturer, Current_Odometer, Next_Service_Odometer, Year, Status, Maximum_Load, Fuel_Efficiency, Weight, Vehicle_Type_ID, Cargo_Configuration_ID, Model_Name });
 
 
                     return true;
@@ -169,13 +155,31 @@ namespace FleetManagementSystemClassLibrary
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
 
+                /*
+                Console.WriteLine("VehID: " + Vehicle_ID);
+                Console.WriteLine("RegNo: " + Plate_Number);
+                Console.WriteLine("Manuf: " + Manufacturer);
+                Console.WriteLine("curod: " + Current_Odometer);
+                Console.WriteLine("nexod: " + Next_Service_Odometer);
+                Console.WriteLine("year : " + Year);
+                Console.WriteLine("statu: " + Status);
+                Console.WriteLine("maxpa: " + Maximum_Load);
+                Console.WriteLine("weigh: " + Weight);
+                Console.WriteLine("vtyid: " + Vehicle_Type_ID);
+                Console.WriteLine("caboc: " + Cargo_Configuration_ID);
+                Console.WriteLine("modna: " + Model_Name);
+                */
                 try
                 {
-                    var output = connection.Query<Vehicle>("CALL UpdateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Body_Configuration_ID, @Model_Name);", this).ToList();
+                    connection.Query("CALL UpdateVehicle(@Vehicle_ID, @Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Configuration_ID, @Model_Name);",
+                                                        new { Vehicle_ID, Plate_Number, Manufacturer, Current_Odometer, Next_Service_Odometer, Year, Status, Maximum_Load, Fuel_Efficiency, Weight, Vehicle_Type_ID, Cargo_Configuration_ID, Model_Name });
+
                     return true;
                 }
-                catch
+                catch(Exception e)
                 {
+                    Console.WriteLine(e.InnerException);
+
                     return false;
                 }
 
