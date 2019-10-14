@@ -140,7 +140,7 @@ namespace FleetManagementSystemClassLibrary
             Status = status;
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL updateStatus(@Timesheet_ID, @Status);",this).FirstOrDefault();
+                var output = connection.Query<Timesheet>("CALL UpdateTimesheetStatus(@Timesheet_ID, @Status);",this).FirstOrDefault();
                 return output;
             }
         }
