@@ -42,6 +42,10 @@ namespace FleetManagementSystemClassLibrary
                 return User.User_ID;
             }
         }
+        public string Message
+        {
+            get; set;
+        }
         public decimal Hourly_Rate { get; set; }
 
         public decimal CalculateSalary(Decimal Hourly_Rate)
@@ -136,10 +140,20 @@ namespace FleetManagementSystemClassLibrary
             Status = status;
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Timesheet>("CALL updateStatus(@Timesheet_ID, @Status);",this).FirstOrDefault();
+                var output = connection.Query<Timesheet>("CALL UpdateTimesheetStatus(@Timesheet_ID, @Status);",this).FirstOrDefault();
                 return output;
             }
         }
+
+        public void AddDeclineMessage(string message)
+        {
+            Message = message;
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Execute("CALL AddMessageToTimesheet(@Timesheet_ID, @Message);",this);
+            }
+        }
+
 
         private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
