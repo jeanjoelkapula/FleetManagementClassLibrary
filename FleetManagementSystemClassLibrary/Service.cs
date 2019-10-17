@@ -1,8 +1,10 @@
+
+﻿using System;
 using Dapper;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Configuration;
+using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -75,12 +77,32 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public static void scheduleService()
+        {
+            get; set;
+        }
+
+        public CargoConfiguration Vehicle_Body_Type
+        {
+            get; set;
+        }
+
+        public static List<Service> GetServiceEntryServiceID()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service>("CALL GetServiceEntryServiceID();").ToList();
+                return output;
+            }
+        }
+
         public static List<Service> GetServiceHistory()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, Cargo_Body_Configuration, Vehicle_Type, Service>("CALL GetServiceHistory();",
-                    map: (s, v, bt, vt) => {
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistory();",
+                    map: (s, v, bt, vt) =>
+                    {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;
                         s.Vehicle_Type = vt;
@@ -92,7 +114,42 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static void scheduleService()
+        public static List<Service> GetServiceHistoryStatus(string status)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryStatus(@status);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                return output;
+            }
+        }
+
+        public static List<Service> GetServiceSchedulesStatus(string status)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesStatus(@status);",
+                    map: (s, v, bt, vt) =>
+                    {
+                        s.Vehicle = v;
+                        s.Vehicle_Body_Type = bt;
+                        s.Vehicle_Type = vt;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                return output;
+            }
+        }
+
+
+        public static List<Service> GetServiceHistoryStatusMechanic(string status, int userID)
         {
             throw new System.NotImplementedException();
         }
@@ -114,9 +171,7 @@ namespace FleetManagementSystemClassLibrary
 
         private static string LoadConnectionString(string id = "fleetmanagementDB")
         {
-
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-
         }
     }
 }
