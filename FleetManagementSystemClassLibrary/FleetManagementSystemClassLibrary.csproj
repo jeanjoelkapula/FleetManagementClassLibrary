@@ -72,7 +72,7 @@
     <Compile Include="CargoType.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Depot.cs" />
-    <Compile Include="Goods.cs" />
+    <Compile Include="Cargo_Package.cs" />
     <Compile Include="Parts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />

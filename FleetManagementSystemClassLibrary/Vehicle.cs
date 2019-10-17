@@ -136,7 +136,7 @@ namespace FleetManagementSystemClassLibrary
         }
 
         
-        public List<Vehicle> GetAllVehicles()
+        public static List<Vehicle> GetAllVehicles()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {

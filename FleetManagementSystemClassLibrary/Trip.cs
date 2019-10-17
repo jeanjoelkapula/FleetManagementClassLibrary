@@ -68,7 +68,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public List<Cargo> Cargo_Package
+        public Cargo_Package Cargo_Package
         {
             get; set;
         }
@@ -79,6 +79,11 @@ namespace FleetManagementSystemClassLibrary
             {
                 var output = connection.Execute("CALL NewTrip(@User_ID,@Vehicle_ID, @Start_Location, @End_Location, @Distance);", new {User_ID,Vehicle_ID ,Start_Location, End_Location, Distance });
             }
+        }
+        
+        public static void AddCargo_Package()
+        {
+
         }
 
         public static List<Trip> getAllTrips()
