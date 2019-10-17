@@ -23,12 +23,12 @@ namespace FleetManagementSystemClassLibrary
             
         }
 
-        public Depot End_Location
+        public string End_Location
         {
             get; set;
         }
 
-        public Depot Start_Location
+        public string Start_Location
         {
             get; set;
         }
@@ -73,11 +73,11 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public static void ScheduleTrip(int User_ID,int Vehicle_ID, int Start_Location, int End_Location, int Distance)
+        public static void ScheduleTrip(int User_ID,int Vehicle_ID, string Start_Location, string End_Location, int Driver_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL NewTrip(@User_ID,@Vehicle_ID, @Start_Location, @End_Location, @Distance);", new {User_ID,Vehicle_ID ,Start_Location, End_Location, Distance });
+                var output = connection.Execute("CALL NewTrip(@User_ID,@Vehicle_ID, @Start_Location, @End_Location, @Driver_ID);", new {User_ID,Vehicle_ID ,Start_Location, End_Location,Driver_ID });
             }
         }
         
@@ -100,7 +100,14 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-
+        public string GetStartLocation(int Trip_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<string>("CALL GetStartLocation(@Trip_ID);", new {Trip_ID}).ToString();
+                return output;
+            }
+        }
         public static List<Trip> getAllPendingTrips()
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
@@ -115,8 +122,8 @@ namespace FleetManagementSystemClassLibrary
                     temp.Trip_ID = row.Trip_ID;
                     
                     output.ElementAt<Trip>(count).Trip_ID = row.Trip_ID;
-                    output.ElementAt<Trip>(count).Start_Location = Depot.GetDepot(row.Start_Location_ID);
-                    output.ElementAt<Trip>(count).End_Location = Depot.GetDepot(row.End_Location_ID);
+                    output.ElementAt<Trip>(count).Start_Location = row.Start_Location;
+                    output.ElementAt<Trip>(count).End_Location = row.End_Location;
                     output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
                     output.ElementAt<Trip>(count).Vehicle = a.getVehicle(Convert.ToInt32(row.Vehicle_ID));
                     output.ElementAt<Trip>(count).Start_Date = row.Start_Date;

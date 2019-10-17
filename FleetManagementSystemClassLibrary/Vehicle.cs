@@ -101,7 +101,7 @@ namespace FleetManagementSystemClassLibrary
         */
 
 
-        public CargoConfiguration Vehicle_Body_Type
+        public CargoConfiguration Vehicle_Body_Type;
 
         public int Maximum_Load { get; set; }
 
@@ -175,11 +175,6 @@ namespace FleetManagementSystemClassLibrary
                 
 
 
-        public string Status { get; set; }
-
-        public int Year { get; set; }
-
-        public static void registerVehicle();
         public bool UpdateVehicle()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))

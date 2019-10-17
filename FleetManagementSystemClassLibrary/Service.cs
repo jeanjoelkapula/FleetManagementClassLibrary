@@ -72,20 +72,17 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public Cargo_Body_Configuration Vehicle_Body_Type
+        public CargoConfiguration Vehicle_Body_Type
         {
             get; set;
         }
 
         public static void scheduleService()
         {
-            get; set;
+            
         }
 
-        public CargoConfiguration Vehicle_Body_Type
-        {
-            get; set;
-        }
+
 
         public static List<Service> GetServiceEntryServiceID()
         {
