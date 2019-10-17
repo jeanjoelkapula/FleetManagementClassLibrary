@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,22 @@ namespace FleetManagementSystemClassLibrary
 {
     public class Service
     {
-        public int Service_ID
+        public string Service_ID
+        {
+            get; set;
+        }
+
+        public int Row_Count
+        {
+            get; set;
+        }
+
+        public string Service_Type
+        {
+            get; set;
+        }
+
+        public decimal Cost
         {
             get; set;
         }

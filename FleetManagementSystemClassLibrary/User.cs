@@ -52,7 +52,17 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public string Fullname
+        {
+            get{
+                return First_Name + " " + Last_Name;
+            }              
+        }
+
         public string Status { get; set; }
+        public decimal Hourly_Rate { get; set; }
+
+
 
         public static User RegisterUser(User user)
         {
@@ -96,6 +106,15 @@ namespace FleetManagementSystemClassLibrary
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
                 var output = connection.Query<User>("CALL GetUserDetails(@User_ID);", new { User_ID }).FirstOrDefault();
+                return output;
+            }
+        }
+
+        public static List<User> GetMechanics()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<User>("CALL GetMechanics();").ToList();
                 return output;
             }
         }

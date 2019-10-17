@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -58,6 +58,20 @@ namespace FleetManagementSystemClassLibrary
         /*
         public int Maximum_Payload
         {
+            get; set;
+        }
+
+
+        public int Maximum_Load
+        {
+            get; set;
+        }
+
+        public decimal Weight { get; set; }
+
+        public CargoConfiguration Vehicle_Body_Type
+
+        {
             get => default;
             set
             {
@@ -71,6 +85,24 @@ namespace FleetManagementSystemClassLibrary
             get => default;
             set
             {
+                try
+                {
+                    connection.Query("CALL CreateVehicle(@Plate_Number, @Manufacturer, @Current_Odometer, @Next_Service_Odometer, @Year, @Status, @Maximum_Load, @Fuel_Efficiency, @Weight, @Vehicle_Type_ID, @Cargo_Configuration_ID, @Model_Name);", 
+                                                        new {Plate_Number, Manufacturer, Current_Odometer, Next_Service_Odometer, Year, Status, Maximum_Load, Fuel_Efficiency, Weight, Vehicle_Type_ID, Cargo_Configuration_ID, Model_Name });
+
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                    Console.WriteLine(e.Source);
+                    Console.WriteLine(e.InnerException);
+                    return false;
+                }
+
+
             }
         }
         */
@@ -196,5 +228,7 @@ namespace FleetManagementSystemClassLibrary
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
 
         }
+
+
     }
 }
