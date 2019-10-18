@@ -15,11 +15,8 @@ namespace FleetManagementSystemClassLibrary
 
         public int Trip_ID
         {
-            
-            get => default(int);
-            set
-            {
-            }
+
+            get; set;
             
         }
 
@@ -86,6 +83,7 @@ namespace FleetManagementSystemClassLibrary
 
         }
 
+
         public static List<Trip> getAllTrips()
         {
             throw new System.NotImplementedException();
@@ -121,7 +119,7 @@ namespace FleetManagementSystemClassLibrary
                     Trip temp = output.ElementAt<Trip>(count);
                     temp.Trip_ID = row.Trip_ID;
                     
-                    output.ElementAt<Trip>(count).Trip_ID = row.Trip_ID;
+                    output.ElementAt<Trip>(count).Trip_ID = Convert.ToInt32(row.Trip_ID);
                     output.ElementAt<Trip>(count).Start_Location = row.Start_Location;
                     output.ElementAt<Trip>(count).End_Location = row.End_Location;
                     output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
@@ -147,8 +145,8 @@ namespace FleetManagementSystemClassLibrary
                     temp.Trip_ID = row.Trip_ID;
 
                     output.ElementAt<Trip>(count).Trip_ID = row.Trip_ID;
-                    output.ElementAt<Trip>(count).Start_Location = Depot.GetDepot(row.Start_Location_ID);
-                    output.ElementAt<Trip>(count).End_Location = Depot.GetDepot(row.End_Location_ID);
+                    output.ElementAt<Trip>(count).Start_Location = row.Start_Location;
+                    output.ElementAt<Trip>(count).End_Location = row.End_Location;
                     output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
                     output.ElementAt<Trip>(count).Vehicle = a.getVehicle(Convert.ToInt32(row.Vehicle_ID));
                     output.ElementAt<Trip>(count).Start_Date = row.Start_Date;
@@ -158,6 +156,16 @@ namespace FleetManagementSystemClassLibrary
                 return output;
             }
         }
+
+        public static void CompleteTrip(int Trip_ID)
+        {
+           
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Execute("CALL CompleteTrip);", new {Trip_ID});
+            }
+        }
+
         public static Trip getTrip(int Trip_ID)
         {
             throw new System.NotImplementedException();

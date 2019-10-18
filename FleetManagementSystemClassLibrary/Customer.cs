@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MySql.Data.MySqlClient;
+using Dapper;
 namespace FleetManagementSystemClassLibrary
 {
     public class Customer
@@ -35,9 +36,12 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public void addCustomer()
+        public static void AddCustomer(string Customer_First_Name, string Customer_Last_Name, string Customer_Email, string Customer_Contact_Number)
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Execute("CALL AddCustomer(@CustomerFirstName, @CustomerLastName, @CustomerContactEmail, @CustomerEmail);", new {Customer_First_Name, Customer_Last_Name, Customer_Email,Customer_Contact_Number });
+            }
         }
 
         public void editCustomer()
