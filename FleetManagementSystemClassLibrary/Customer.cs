@@ -43,7 +43,14 @@ namespace FleetManagementSystemClassLibrary
                 var output = connection.Execute("CALL AddCustomer(@CustomerFirstName, @CustomerLastName, @CustomerContactEmail, @CustomerEmail);", new {Customer_First_Name, Customer_Last_Name, Customer_Email,Customer_Contact_Number });
             }
         }
-
+        public static List<Customer> GetCustomers()
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Customer>("CALL GetCustomers();", new DynamicParameters()).ToList();
+                return output;
+            }
+        }
         public void editCustomer()
         {
             throw new System.NotImplementedException();
