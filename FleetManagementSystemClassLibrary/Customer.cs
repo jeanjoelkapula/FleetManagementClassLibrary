@@ -35,6 +35,16 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+        
+        public static int GetCustomerID(string Customer_First_Name, string Customer_Last_name, string Customer_Email, string Customer_Contact_Number)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = Convert.ToInt32(connection.Query<int>("CALL GetCustomerID(@CustomerFirstName, @CustomerLastName, @CustomerContactNumber, @CustomerEmail);", new {Customer_First_Name,Customer_Last_name,Customer_Contact_Number,Customer_Email}));
+                return output;
+            }
+        }
+
 
         public static void AddCustomer(string Customer_First_Name, string Customer_Last_Name, string Customer_Email, string Customer_Contact_Number)
         {

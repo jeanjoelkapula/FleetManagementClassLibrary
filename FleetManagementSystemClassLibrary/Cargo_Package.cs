@@ -7,7 +7,10 @@ namespace FleetManagementSystemClassLibrary
 {
     public class Cargo_Package
     {
-
+        public int Cargo_Package_ID
+        {
+            get; set;
+        }
         public string Description
         {
             get; set;

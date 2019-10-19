@@ -35,13 +35,13 @@ namespace FleetManagementSystemClassLibrary
             throw new System.NotImplementedException();
         }
 
-        public void newCargo(decimal Cargo_Weight, string Cargo_Description)
+        public static void newCargo(decimal Cargo_Weight, string Cargo_Description)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
                 try
                 {
-                    var output = connection.Query<Cargo>("CALL NewCargo(@Cargo_Weight, @Cargo_Description);", new {Cargo_Weight = Cargo_Weight, Cargo_Description = Cargo_Description }).ToList();
+                    var output = connection.Execute("CALL NewCargo(@Cargo_Weight, @Cargo_Description);", new {Cargo_Weight = Cargo_Weight, Cargo_Description = Cargo_Description });
                     
                 }
                 catch (Exception e)
