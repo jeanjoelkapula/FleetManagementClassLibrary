@@ -12,12 +12,13 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
-        public Customer(string Customer_First_Name, string Customer_Last_Name, string ContactNumber, string Email)
+        public Customer(int Customer_ID,string CustomerFirstName, string CustomerLastName, string CustomerContactNumber, string CustomerEmail)
         {
-            this.Customer_First_Name = Customer_First_Name;
-            this.Customer_Last_Name = Customer_Last_Name;
-            this.ContactNumber = ContactNumber;
-            this.Email = Email;
+            this.Customer_ID = Customer_ID;
+            this.Customer_First_Name = CustomerFirstName;
+            this.Customer_Last_Name = CustomerLastName;
+            this.ContactNumber = CustomerContactNumber;
+            this.Email = CustomerEmail;
         }
         public string Customer_First_Name
         {
@@ -36,21 +37,30 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
         
-        public static int GetCustomerID(string Customer_First_Name, string Customer_Last_name, string Customer_Email, string Customer_Contact_Number)
+        public static Customer GetCustomer(int Customer_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = Convert.ToInt32(connection.Query<int>("CALL GetCustomerID(@CustomerFirstName, @CustomerLastName, @CustomerContactNumber, @CustomerEmail);", new {Customer_First_Name,Customer_Last_name,Customer_Contact_Number,Customer_Email}));
+                var output = connection.Query<Customer>("CALL GetCustomer(@Customer_ID);", new {Customer_ID}).FirstOrDefault();
+                return output;
+            }
+        }
+        
+        public static int GetCustomerID()
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = Convert.ToInt32(connection.Query<int>("CALL GetCustomerID();", new DynamicParameters()).First());
                 return output;
             }
         }
 
 
-        public static void AddCustomer(string Customer_First_Name, string Customer_Last_Name, string Customer_Email, string Customer_Contact_Number)
+        public static void AddCustomer(string CustomerFirstName, string CustomerLastName, string CustomerContactNumber, string CustomerEmail)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL AddCustomer(@CustomerFirstName, @CustomerLastName, @CustomerContactEmail, @CustomerEmail);", new {Customer_First_Name, Customer_Last_Name, Customer_Email,Customer_Contact_Number });
+                var output = connection.Execute("CALL AddCustomer(@CustomerFirstName, @CustomerLastName, @CustomerContactNumber, @CustomerEmail);", new {CustomerFirstName,  CustomerLastName, CustomerContactNumber, CustomerEmail });
             }
         }
         public static List<Customer> GetCustomers()

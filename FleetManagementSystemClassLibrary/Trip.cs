@@ -59,7 +59,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
-
+        public int Driver_ID
+        {
+            get; set;
+        }
         public Vehicle Vehicle
         {
             get; set;
@@ -83,7 +86,14 @@ namespace FleetManagementSystemClassLibrary
 
         }
 
-
+        public static Trip GetTrip(int Trip_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Trip>("CALL GetTrip(@Trip_ID);", new { Trip_ID }).FirstOrDefault();
+                return output;
+            }
+        }
         public static List<Trip> getAllTrips()
         {
             throw new System.NotImplementedException();
@@ -162,7 +172,7 @@ namespace FleetManagementSystemClassLibrary
            
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL CompleteTrip);", new {Trip_ID});
+                var output = connection.Execute("CALL CompleteTrip(@Trip_ID);", new {Trip_ID});
             }
         }
 

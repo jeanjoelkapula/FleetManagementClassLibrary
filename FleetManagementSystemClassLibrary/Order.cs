@@ -8,13 +8,19 @@ namespace FleetManagementSystemClassLibrary
 {
     public class Order
     {
-        public Order(Customer Customer, Cargo_Package Cargo_Package)
+        public Order(Customer Customer, Trip Trip)
         {
+            this.Trip = Trip;
             this.Customer = Customer;
-            this.Cargo_Package = Cargo_Package;
+         //   this.Cargo_Package = Cargo_Package;
 
         }
         public int Order_ID
+        {
+            get; set;
+        }
+
+        public Trip Trip
         {
             get; set;
         }
@@ -34,14 +40,14 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public static void AddOrder(Customer Customer, Cargo_Package Cargo_Package)
+        public static void AddOrder(int Customer_ID, int Trip_ID)
         {
-            int customerid = Customer.Customer_ID;
-            int packageid = Cargo_Package.Cargo_Package_ID;
-
+          
+          //  int packageid = Cargo_Package_ID;
+           
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL AddOrder);", new { customerid, packageid });
+                var output = connection.Execute("CALL AddOrder(@Customer_ID, @Trip_ID);", new { Customer_ID, Trip_ID });
             }
         }
 
