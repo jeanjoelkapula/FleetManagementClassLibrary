@@ -44,15 +44,24 @@ namespace FleetManagementSystemClassLibrary
             Cargo_ID = new List<Cargo>();
         }
 
-        public void AddPackage(int Trip_ID)
+        public static int GetNewestCargo()
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<int>("CALL GetCargoId();", new DynamicParameters()).First();
+                return output;
+            }
+        }
+
+        public void AddPackage(List<int> Cargo_IDs,int Trip_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
             //    try
                // {
-                    foreach (Cargo cp in Cargo_ID)
+                    foreach (int Cargo_ID in Cargo_IDs)
                     {
-                        var output = connection.Execute("CALL AddCargoPackage(@Cargo_ID, @Trip_ID);", new { cp.Cargo_ID, Trip_ID});
+                        var output = connection.Execute("CALL AddCargoPackage(@Cargo_ID, @Trip_ID);", new {Cargo_ID , Trip_ID});
                     }
              //   }
               //  catch (Exception e)
