@@ -228,11 +228,11 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static Vehicle getVehicle(int VehiclVehicle_ID)
+        public static Vehicle getVehicle(int Vehicle_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                Vehicle vehicle = connection.Query<Vehicle>("call GetVehicleDetails(@Vehicle_ID);", new { VehiclVehicle_ID }).SingleOrDefault();
+                Vehicle vehicle = connection.Query<Vehicle>("call GetVehicle(@Vehicle_ID);", new { Vehicle_ID }).SingleOrDefault();
                 return vehicle;
             }
         }

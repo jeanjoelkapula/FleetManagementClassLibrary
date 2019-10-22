@@ -56,7 +56,7 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public List<Part> Parts
+        public List<Parts> Parts
         {
             get; set;
         }
@@ -85,6 +85,15 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static string GetServiceID(int vID, DateTime scheduledDate)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                string output = connection.Query<string>("CALL GetServiceID(@vID, @scheduledDate);", new { vID, scheduledDate }).SingleOrDefault();
+                return output;
+            }
+        }
+        
         public static List<Service> GetServiceHistory()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
