@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo.cs" />
+    <Compile Include="Cargo_Package.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="CargoType.cs" />
     <Compile Include="Customer.cs" />

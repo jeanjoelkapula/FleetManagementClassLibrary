@@ -182,7 +182,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        private static string LoadConnectionString(string id = "fleetmanagementDB")
+        public static string LoadConnectionString(string id = "fleetmanagementDB")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
