@@ -85,6 +85,65 @@ namespace FleetManagementSystemClassLibrary
 
         }
 
+        public static List<Trip> GetTripPendingByDriver(int User_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Trip>("CALL getPendingTripsByDriver(@User_ID);", new {User_ID}).ToList(); ;
+                Vehicle a = new Vehicle();
+                IEnumerable<dynamic> iter = connection.Query("CALL getPendingTripsByDriver(@User_ID);", new { User_ID }).ToList(); 
+                int count = 0;
+                foreach (var row in iter)
+                {
+                    Trip temp = output.ElementAt<Trip>(count);
+                    temp.Trip_ID = row.Trip_ID;
+
+                    output.ElementAt<Trip>(count).Trip_ID = Convert.ToInt32(row.Trip_ID);
+                    output.ElementAt<Trip>(count).Start_Location = row.Start_Location;
+                    output.ElementAt<Trip>(count).End_Location = row.End_Location;
+                    output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
+                    output.ElementAt<Trip>(count).Vehicle = Vehicle.getVehicle(Convert.ToInt32(row.Vehicle_ID));
+                    output.ElementAt<Trip>(count).Start_Date = row.Start_Date;
+                    count++;
+                }
+
+                return output;
+            }
+        }
+
+
+        public static void StartTrip(int Trip_ID, int Vehicle_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Execute("CALL StartTrip(@Trip_ID,@Vehicle_ID);", new {Trip_ID, Vehicle_ID});
+            }
+        }
+        public static List<Trip> GetTripCompletedByDriver(int User_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Trip>("CALL getCompletedTripsByDriver(@User_ID);", new { User_ID }).ToList(); ;
+                Vehicle a = new Vehicle();
+                IEnumerable<dynamic> iter = connection.Query("CALL getCompletedTripsByDriver(@User_ID);", new { User_ID }).ToList();
+                int count = 0;
+                foreach (var row in iter)
+                {
+                    Trip temp = output.ElementAt<Trip>(count);
+                    temp.Trip_ID = row.Trip_ID;
+
+                    output.ElementAt<Trip>(count).Trip_ID = Convert.ToInt32(row.Trip_ID);
+                    output.ElementAt<Trip>(count).Start_Location = row.Start_Location;
+                    output.ElementAt<Trip>(count).End_Location = row.End_Location;
+                    output.ElementAt<Trip>(count).User = User.GetUser(row.User_ID);
+                    output.ElementAt<Trip>(count).Vehicle = Vehicle.getVehicle(Convert.ToInt32(row.Vehicle_ID));
+                    output.ElementAt<Trip>(count).Start_Date = row.Start_Date;
+                    count++;
+                }
+
+                return output;
+            }
+        }
         public static Trip GetTrip(int Trip_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
@@ -166,12 +225,12 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static void CompleteTrip(int Trip_ID)
+        public static void CompleteTrip(int Trip_ID, int Vehicle_ID)
         {
            
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL CompleteTrip(@Trip_ID);", new {Trip_ID});
+                var output = connection.Execute("CALL CompleteTrip(@Trip_ID, @Vehicle_ID);", new {Trip_ID, Vehicle_ID});
             }
         }
 

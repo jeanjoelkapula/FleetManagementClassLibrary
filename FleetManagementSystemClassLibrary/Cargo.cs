@@ -60,6 +60,29 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static int GetCargoID(decimal Cargo_Weight, string Cargo_Description)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<int>("CALL GetCargoByID(@Cargo_Weight, @Cargo_Description);", new { Cargo_Weight, Cargo_Description }).FirstOrDefault();
+                return output;
+            }
+        }
+        public static void DeleteCargo(int Cargo_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                try
+                {
+                    var output = connection.Execute("CALL DeleteCargo(@Cargo_ID);", new { Cargo_ID });
+
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
         public void editCargo()
         {
             throw new System.NotImplementedException();

@@ -149,6 +149,17 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public List<Vehicle> GetAllAvailableVehicles()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                List<Vehicle> output = connection.Query<Vehicle>("CALL getAvailableVehicles;").ToList();
+
+
+                return output;
+            }
+        }
+
 
         public bool UpdateVehicle()
         {
