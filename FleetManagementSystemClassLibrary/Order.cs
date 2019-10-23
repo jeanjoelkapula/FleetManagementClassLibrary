@@ -52,6 +52,17 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<string> GetAllOrderInfo(int Order_ID)
+        {
+           using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<string>("CALL GetAllOrderInfo(@Order_ID);", new { Order_ID }).ToList();
+                return output;
+            } 
+
+       
+        }
+
         public static Order getOrder(int Order_ID)
         {
             throw new System.NotImplementedException();
