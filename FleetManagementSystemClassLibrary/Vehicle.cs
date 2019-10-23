@@ -196,7 +196,16 @@ namespace FleetManagementSystemClassLibrary
 
             }
         }
+        public static string GetVehicleStatus(int Vehicle_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
 
+                string status = connection.Query<string>("call GetVehicleStatus(@Vehicle_ID);", new { Vehicle_ID }).SingleOrDefault();
+
+                return status;
+            }
+        }
         public bool SuspendVehicle(int ID)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
