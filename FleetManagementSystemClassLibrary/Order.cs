@@ -40,14 +40,15 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public static void AddOrder(int Customer_ID, int Trip_ID)
+        public static int AddOrder(int Customer_ID, int Trip_ID)
         {
           
           //  int packageid = Cargo_Package_ID;
            
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Execute("CALL AddOrder(@Customer_ID, @Trip_ID);", new { Customer_ID, Trip_ID });
+                var output = connection.Query<int>("CALL AddOrder(@Customer_ID, @Trip_ID);", new { Customer_ID, Trip_ID }).FirstOrDefault();
+                return output;
             }
         }
 
