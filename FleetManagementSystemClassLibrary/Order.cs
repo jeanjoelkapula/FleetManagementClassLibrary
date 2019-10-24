@@ -52,11 +52,11 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static List<string> GetAllOrderInfo(int Order_ID)
+        public static List<string> GetAllOrderInfo(int Trip_ID)
         {
            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
             {
-                var output = connection.Query<string>("CALL GetAllOrderInfo(@Order_ID);", new { Order_ID }).ToList();
+                var output = connection.Query<string>("CALL GetAllOrderInfo(@Trip_ID);", new { Trip_ID }).ToList();
                 return output;
             } 
 
