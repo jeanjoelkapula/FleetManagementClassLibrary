@@ -2,12 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MySql.Data.MySqlClient;
+using Dapper;
 namespace FleetManagementSystemClassLibrary
 {
     public class Order
     {
+        public Order(Customer Customer, Trip Trip)
+        {
+            this.Trip = Trip;
+            this.Customer = Customer;
+         //   this.Cargo_Package = Cargo_Package;
+
+        }
         public int Order_ID
+        {
+            get; set;
+        }
+
+        public Trip Trip
         {
             get; set;
         }
@@ -22,9 +35,20 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
-        public List<Cargo> Cargo
+        public Cargo_Package Cargo_Package
         {
             get; set;
+        }
+
+        public static void AddOrder(int Customer_ID, int Trip_ID)
+        {
+          
+          //  int packageid = Cargo_Package_ID;
+           
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Execute("CALL AddOrder(@Customer_ID, @Trip_ID);", new { Customer_ID, Trip_ID });
+            }
         }
 
         public static Order getOrder(int Order_ID)

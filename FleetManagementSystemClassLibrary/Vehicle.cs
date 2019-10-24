@@ -58,10 +58,7 @@ namespace FleetManagementSystemClassLibrary
 
         public CargoConfiguration Vehicle_Body_Type
         {
-            get => default;
-            set
-            {
-            }
+            get;set;
         }
 
         public string Status { get; set; }
@@ -81,6 +78,7 @@ namespace FleetManagementSystemClassLibrary
         {
             //Blank on purpose
         }
+
 
         public Vehicle(string plate_Number, string manufacturer, int current_Odometer, int next_Service_Odometer, int year, string status, int maximum_Load, decimal fuel_Efficiency, decimal weight, int vehicle_type_ID, int cargo_body_configuration_ID, string modelName)
         {
@@ -145,6 +143,17 @@ namespace FleetManagementSystemClassLibrary
                 List<Vehicle> output = connection.Query<Vehicle>("CALL GetVehicles;", this).ToList();
                              
                                 
+                return output;
+            }
+        }
+
+        public List<Vehicle> GetAllAvailableVehicles()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                List<Vehicle> output = connection.Query<Vehicle>("CALL getAvailableVehicles;").ToList();
+
+
                 return output;
             }
         }
@@ -232,7 +241,9 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
+
                 Vehicle vehicle = connection.Query<Vehicle>("call GetVehicle(@Vehicle_ID);", new { Vehicle_ID }).SingleOrDefault();
+
                 return vehicle;
             }
         }

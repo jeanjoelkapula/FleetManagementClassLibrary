@@ -110,6 +110,14 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<User> GetDrivers()
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<User>("CALL GetDrivers();").ToList();
+                return output;
+            }
+        }
         public static List<User> GetMechanics()
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
@@ -182,7 +190,7 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        private static string LoadConnectionString(string id = "fleetmanagementDB")
+        public static string LoadConnectionString(string id = "fleetmanagementDB")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
