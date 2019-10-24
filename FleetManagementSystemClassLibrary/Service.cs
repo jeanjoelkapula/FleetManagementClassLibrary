@@ -129,15 +129,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceHistoryStatus(@status);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceHistoryStatus(@status);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;
                         s.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { status }).ToList();
                 return output;
             }
         }
@@ -146,15 +147,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesStatus(@status);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceSchedulesStatus(@status);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;
                         s.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { status }).ToList();
                 return output;
             }
         }
