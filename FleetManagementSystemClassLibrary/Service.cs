@@ -46,6 +46,11 @@ namespace FleetManagementSystemClassLibrary
             get; set;
         }
 
+        public string Description
+        {
+            get; set;
+        }
+
         public string Service_Status
         {
             get; set;
@@ -108,6 +113,14 @@ namespace FleetManagementSystemClassLibrary
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class"
                ).ToList();
+                return output;
+            }
+        }
+        public static List<Parts> GetServiceParts(string serviceID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Parts>("CALL GetServiceParts(@serviceID);",  new { serviceID }).ToList();
                 return output;
             }
         }
@@ -182,14 +195,21 @@ namespace FleetManagementSystemClassLibrary
         }
 
 
-        public static void UpdateServiceStatus(int vehicleID, string inService, DateTime scheduledDate, DateTime dateNow)
+        public static void StartService(string ServiceID, DateTime startDate)
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                connection.Execute("CALL UpdateServiceStatus(@vehicleID, @inService, @scheduledDate, @dateNow);", param: new { vehicleID, inService, scheduledDate, dateNow });
+                connection.Execute("CALL StartService(@ServiceID, @startDate);", param: new { ServiceID, startDate});
             }
         }
 
+        public static void CompleteService(string ServiceID, DateTime completionDate)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                connection.Execute("CALL CompleteService(@ServiceID,@completionDate);", param: new { ServiceID, completionDate });
+            }
+        }
 
         public static void UpdateServiceStatusCompleted(int vehicleID, string inService, DateTime scheduledDate, DateTime dateNow, int cost)
         {
@@ -230,20 +250,43 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedules();",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceSchedules();",
+                    map: (s, v, bt, vt,u) =>
                     {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;
                         s.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class"
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID"
                ).ToList();
+
+                
                 return output;
             }
         }
 
+        public static Service GetService(string Service)
+        {
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetService(@Service);",
+                    map: (s, v, bt, vt, u) =>
+                    {
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
+                        s.Vehicle = v;
+                        s.User = u;
+                        return s;
+                    },
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param:new {Service}
+               ).FirstOrDefault();
+
+
+                return output;
+            }
+        }
 
         public static List<Service> GetServiceSchedulesMechanic(int userID)
         {
@@ -300,15 +343,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentDaily(@daily);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceAppointmentDaily(@daily);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
                         s.Vehicle_Body_Type = bt;
                         s.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { daily }).ToList();
                 return output;
             }
         }
