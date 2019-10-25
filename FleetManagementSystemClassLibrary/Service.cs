@@ -107,8 +107,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class"
@@ -133,8 +133,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         s.User = u;
                         return s;
                     },
@@ -151,8 +151,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         s.User = u;
                         return s;
                     },
@@ -170,8 +170,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status, userID }).ToList();
@@ -183,15 +183,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceSchedulesStatusMechanic(@status, @userID);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceSchedulesStatusMechanic(@status, @userID);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { status, userID }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { status, userID }).ToList();
                 return output;
             }
         }
@@ -238,8 +239,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { userID }).ToList();
@@ -256,8 +257,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt,u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         s.User = u;
                         return s;
                     },
@@ -298,8 +299,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { userID }).ToList();
@@ -315,8 +316,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily }).ToList();
@@ -332,8 +333,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily, userID }).ToList();
@@ -349,8 +350,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         s.User = u;
                         return s;
                     },
@@ -368,8 +369,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { daily, userID }).ToList();
@@ -385,8 +386,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd }).ToList();
@@ -404,8 +405,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd, userID }).ToList();
@@ -418,15 +419,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentYearly(@yearStart, @yearEnd);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceAppointmentYearly(@yearStart, @yearEnd);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { yearStart, yearEnd }).ToList();
                 return output;
             }
         }
@@ -441,8 +443,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { yearStart, yearEnd, userID }).ToList();
@@ -458,8 +460,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd }).ToList();
@@ -476,8 +478,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd, userID }).ToList();
@@ -489,15 +491,16 @@ namespace FleetManagementSystemClassLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
             {
-                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, Service>("CALL GetServiceAppointmentMonthly(@monthStart, @monthEnd);",
-                    map: (s, v, bt, vt) =>
+                var output = connection.Query<Service, Vehicle, CargoConfiguration, Vehicle_Type, User, Service>("CALL GetServiceAppointmentMonthly(@monthStart, @monthEnd);",
+                    map: (s, v, bt, vt, u) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
+                        s.User = u;
                         return s;
                     },
-                    splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd }).ToList();
+                    splitOn: "Vehicle_ID, Description, Vehicle_Class, User_ID", param: new { monthStart, monthEnd }).ToList();
                 return output;
             }
         }
@@ -511,8 +514,8 @@ namespace FleetManagementSystemClassLibrary
                     map: (s, v, bt, vt) =>
                     {
                         s.Vehicle = v;
-                        s.Vehicle_Body_Type = bt;
-                        s.Vehicle_Type = vt;
+                        v.Vehicle_Body_Type = bt;
+                        v.Vehicle_Type = vt;
                         return s;
                     },
                     splitOn: "Vehicle_ID, Description, Vehicle_Class", param: new { monthStart, monthEnd, userID }).ToList();

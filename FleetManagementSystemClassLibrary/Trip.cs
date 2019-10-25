@@ -58,7 +58,7 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
-        public int Driver_ID
+        public User Driver
         {
             get; set;
         }
