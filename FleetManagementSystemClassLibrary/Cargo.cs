@@ -22,7 +22,10 @@ namespace FleetManagementSystemClassLibrary
         {
             get; set;
         }
+        public Cargo()
+        {
 
+        }
         public Cargo(decimal Cargo_Weight, string Cargo_Description)
         {
 
@@ -60,6 +63,14 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
+        public static List<Cargo> GetPackageOnTrip(int Trip_ID)
+        {
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Cargo>("CALL GetPackageOnTrip(@Trip_ID);", new { Trip_ID }).ToList();
+                return output;
+            }
+        }
         public static int GetCargoID(decimal Cargo_Weight, string Cargo_Description)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))

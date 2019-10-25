@@ -15,28 +15,31 @@ namespace FleetManagementSystemClassLibrary
         public Customer(int Customer_ID,string CustomerFirstName, string CustomerLastName, string CustomerContactNumber, string CustomerEmail)
         {
             this.Customer_ID = Customer_ID;
-            this.Customer_First_Name = CustomerFirstName;
-            this.Customer_Last_Name = CustomerLastName;
-            this.ContactNumber = CustomerContactNumber;
-            this.Email = CustomerEmail;
+            this.CustomerFirstName = CustomerFirstName;
+            this.CustomerLastName = CustomerLastName;
+            this.CustomerContactNumber = CustomerContactNumber;
+            this.CustomerEmail = CustomerEmail;
         }
-        public string Customer_First_Name
+        public string CustomerFirstName
         {
             get; set;
         }
-        public string Customer_Last_Name
+        public string CustomerLastName
         {
             get; set;
         }
-        public string Email
+        public string CustomerEmail
         {
             get; set;
         }
-        public string ContactNumber
+        public string CustomerContactNumber
         {
             get; set;
         }
-        
+        public Customer()
+        {
+
+        }
         public static Customer GetCustomer(int Customer_ID)
         {
             using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))

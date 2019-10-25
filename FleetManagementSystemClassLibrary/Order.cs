@@ -15,6 +15,10 @@ namespace FleetManagementSystemClassLibrary
          //   this.Cargo_Package = Cargo_Package;
 
         }
+        public Order()
+        {
+
+        }
         public int Order_ID
         {
             get; set;
@@ -52,13 +56,31 @@ namespace FleetManagementSystemClassLibrary
             }
         }
 
-        public static List<string> GetAllOrderInfo(int Trip_ID)
+         public static List<Order> GetAllOrderInfo(int Trip_ID)
         {
-           using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
-            {
-                var output = connection.Query<string>("CALL GetAllOrderInfo(@Trip_ID);", new { Trip_ID }).ToList();
-                return output;
-            } 
+          //  List<string> orderInfo = new List<string>();
+          //  int count = 0;
+       
+            
+                using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+                {
+                    var output = connection.Query<Order, Vehicle, Vehicle_Type,Trip, User, CargoConfiguration, Customer, Order>("CALL GetAllOrderInfo(@Trip_ID);",
+                        map: (o, v, vt,t, u,cc,c) =>
+                        {
+                            o.Trip = t;
+                            o.Customer = c;
+                            v.Vehicle_Body_Type = cc;
+                            v.Vehicle_Type = vt;
+                            t.Vehicle = v;
+                            t.Driver = u;
+                            return o;
+                        },
+                        splitOn: "Order_ID,Vehicle_ID, Vehicle_Class, Trip_ID, First_Name, Description, CustomerFirstName",
+                        param: new {Trip_ID}
+                   ).ToList();
+                    return output;
+                }
+           
 
        
         }
