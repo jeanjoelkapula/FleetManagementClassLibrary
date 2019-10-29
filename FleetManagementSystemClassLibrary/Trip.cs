@@ -469,7 +469,11 @@ namespace FleetManagementSystemClassLibrary
         }
         public static List<Trip> getAllTrips()
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(User.LoadConnectionString()))
+            {
+                var output = connection.Query<Trip>("CALL GetAllTrips();").ToList();
+                return output;
+            }
         }
 
         public static List<Trip> getAllActiveTrips()
