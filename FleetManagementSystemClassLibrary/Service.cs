@@ -534,7 +534,11 @@ namespace FleetManagementSystemClassLibrary
 
         public static List<Service> getAllServices()
         {
-            throw new System.NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(LoadConnectionString()))
+            {
+                var output = connection.Query<Service>("CALL GetAllServices();").ToList();
+                return output;
+            }
         }
 
         public static Service getService(int Service_ID)
